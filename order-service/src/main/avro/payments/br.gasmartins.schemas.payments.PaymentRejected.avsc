@@ -1,0 +1,75 @@
+{
+  "type":"record",
+  "name":"PaymentRejected",
+  "namespace":"br.gasmartins.schemas.payments.payment_rejected",
+  "fields":[
+    {
+      "name":"id",
+      "type": {
+        "type": "string",
+        "logicalType": "uuid"
+      }
+    },
+    {
+      "name":"order_id",
+      "type": "long"
+    },
+    {
+      "name":"customer_id",
+      "type": {
+        "type": "string",
+        "logicalType": "uuid"
+      }
+    },
+    {
+      "name":"created_at",
+      "type": {
+        "type": "long",
+        "logicalType": "local-timestamp-millis"
+      }
+    },
+    {
+      "name":"total_amount",
+      "type": {
+        "type": "bytes",
+        "logicalType": "decimal",
+        "precision": 9,
+        "scale": 2
+      }
+    },
+    {
+      "name":"total_discount",
+      "type": {
+        "type": "bytes",
+        "logicalType": "decimal",
+        "precision": 9,
+        "scale": 2
+      }
+    },
+    {
+      "name":"reason",
+      "type": {
+        "name":"Reason",
+        "type": "record",
+        "fields": [
+          { "name": "code", "type": "string" },
+          { "name": "description", "type": "string" }
+        ]
+      }
+    },
+    {
+      "name":"payment_methods",
+      "type": {
+        "type": "array",
+        "items": {
+          "name": "PaymentMethod",
+          "type": "record",
+          "fields": [
+            { "name": "payment_type", "type": { "type": "enum", "name": "PaymentType", "symbols": ["CREDIT_CARD", "CASH", "INTERNET_BANKING", "PAYPAL"] }},
+            { "name": "amount", "type": {"type": "bytes", "logicalType": "decimal", "precision": 9,  "scale": 2 } }
+          ]
+        }
+      }
+    }
+  ]
+}

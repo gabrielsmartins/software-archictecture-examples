@@ -1,0 +1,42 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: orders-service
+  kafka:
+    bootstrap-servers: 127.0.0.1:9092
+    properties:
+      schema.registry.url: http://localhost:8081
+    consumer:
+      group-id: orders-service
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
+      schema.registry.url: ${spring.kafka.properties.schema.registry.url}
+      properties:
+        specific.avro.reader: true
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
+      schema.registry.url: ${spring.kafka.properties.schema.registry.url}7
+    streams:
+      properties:
+        default.key.serde: io.confluent.kafka.streams.serdes.avro.SpecificAvroSerde
+        default.value.serde: io.confluent.kafka.streams.serdes.avro.SpecificAvroSerde
+    sleuth:
+      opentracing:
+        enabled: true
+      sampler:
+        probability: 1.0
+      trace-id128: true
+
+topics:
+  input:
+    basket: basket-orders
+    fraud: fraud-orders
+    payment: payment-orders
+    inventory: inventory-orders
+  output:
+    orders: order-status
+
+

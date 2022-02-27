@@ -1,0 +1,47 @@
+{
+  "type":"record",
+  "name":"InventoryAllocated",
+  "namespace":"br.gasmartins.schemas.inventories.inventory_allocated",
+  "fields":[
+    {
+      "name":"id",
+      "type": {
+        "type": "string",
+        "logicalType": "uuid"
+      }
+    },
+    {
+      "name":"order_id",
+      "type": "long"
+    },
+    {
+      "name":"payment_id",
+      "type": {
+        "type": "string",
+        "logicalType": "uuid"
+      }
+    },
+    {
+      "name":"allocated_at",
+      "type": {
+        "type": "long",
+        "logicalType": "local-timestamp-millis"
+      }
+    },
+    {
+      "name":"items",
+      "type": {
+        "type": "array",
+        "items": {
+          "name": "Item",
+          "type": "record",
+          "fields": [
+            { "name": "product_id", "type": {"type": "string", "logicalType": "uuid"} },
+            { "name": "allocated_quantity", "type": "int" },
+            { "name": "available_quantity", "type": "int" }
+          ]
+        }
+      }
+    }
+  ]
+}

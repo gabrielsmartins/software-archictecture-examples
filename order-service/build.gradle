@@ -1,0 +1,114 @@
+apply plugin: 'java'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+apply plugin: 'jacoco'
+apply plugin: 'com.commercehub.gradle.plugin.avro'
+
+group = 'br.gasmartins.orders'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+compileJava.options.encoding = 'UTF-8'
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+apply from: "$rootDir/repositories.gradle"
+apply from: "$rootDir/repositories.gradle", to: buildscript
+
+buildscript {
+    apply from: "$rootDir/repositories.gradle", to: buildscript
+    ext {
+        springBootPluginVersion = '2.6.3'
+        springBootDependencyManagementPluginVersion = '1.0.11.RELEASE'
+        avroPluginVersion = '0.22.0'
+    }
+    dependencies {
+        classpath group: 'org.springframework.boot', name: 'spring-boot-gradle-plugin', version: springBootPluginVersion
+        classpath group: 'io.spring.gradle', name: 'dependency-management-plugin', version: springBootDependencyManagementPluginVersion
+        classpath group: 'com.commercehub.gradle.plugin', name: 'gradle-avro-plugin', version: avroPluginVersion
+    }
+}
+
+ext {
+    set('springBootVersion', "2.6.3")
+    set('springCloudVersion', "2021.0.0")
+    set('confluentVersion', "7.0.1")
+    set('logstashVersion', "7.0.1")
+    set('modelMapperVersion', "3.0.0")
+    set('avroVersion', "1.11.0")
+    set('awaitilityVersion', "4.1.1")
+    set('kafkaStreamsVersion', "3.1.0")
+    set('kafkaStreamsSerdeVersion', "7.0.1")
+}
+
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.apache.kafka:kafka-streams'
+    implementation 'org.springframework.cloud:spring-cloud-starter-circuitbreaker-resilience4j'
+    implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
+    implementation 'org.springframework.cloud:spring-cloud-starter-sleuth'
+    implementation group: 'net.logstash.logback', name: 'logstash-logback-encoder', version: logstashVersion
+    implementation 'org.springframework.kafka:spring-kafka'
+    implementation group: 'io.confluent', name: 'kafka-avro-serializer', version: confluentVersion
+    implementation group: 'org.modelmapper', name: 'modelmapper', version: modelMapperVersion
+    implementation group: 'org.apache.avro', name: 'avro', version: avroVersion
+    implementation group: 'org.apache.kafka', name: 'kafka-streams', version: kafkaStreamsVersion
+    implementation group: 'io.confluent', name: 'kafka-streams-avro-serde', version: kafkaStreamsSerdeVersion
+
+
+    implementation 'org.projectlombok:lombok'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    runtimeOnly 'io.micrometer:micrometer-registry-prometheus'
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+    annotationProcessor 'org.projectlombok:lombok'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.kafka:spring-kafka-test'
+    testImplementation 'org.springframework.security:spring-security-test'
+    testImplementation group: 'org.awaitility', name: 'awaitility', version: awaitilityVersion
+    testImplementation group: 'org.apache.kafka', name: 'kafka-streams-test-utils', version: kafkaStreamsVersion
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.boot:spring-boot-dependencies:${springBootVersion}"
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+    }
+}
+
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
+
+test {
+    useJUnitPlatform()
+    finalizedBy(jacocoTestReport)
+}
+
+jacocoTestReport {
+    reports {
+        html.enabled = true
+        xml.enabled = true
+        csv.enabled = false
+        html.destination file("${buildDir}/jacocoHtml")
+    }
+}
+
+jacoco {
+    toolVersion = '0.8.5'
+}
+
+
+avro {
+    enableDecimalLogicalType = true
+    outputCharacterEncoding = "UTF-8"
+}

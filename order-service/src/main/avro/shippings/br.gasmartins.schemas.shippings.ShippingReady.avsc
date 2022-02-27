@@ -1,0 +1,53 @@
+{
+  "type":"record",
+  "name":"ShippingReady",
+  "namespace":"br.gasmartins.schemas.shippings.shipping_ready",
+  "fields":[
+    {
+      "name":"order_id",
+      "type": "long"
+    },
+    {
+      "name":"payment_id",
+      "type": {
+        "type": "string",
+        "logicalType": "uuid"
+      }
+    },
+    {
+      "name":"customer_id",
+      "type": {
+        "type": "string",
+        "logicalType": "uuid"
+      }
+    },
+    {
+      "name":"created_at",
+      "type": {
+        "type": "long",
+        "logicalType": "local-timestamp-millis"
+      }
+    },
+    {
+      "name":"confirmed_at",
+      "type": {
+        "type": "long",
+        "logicalType": "local-timestamp-millis"
+      }
+    },
+    {
+      "name":"items",
+      "type": {
+        "type": "array",
+        "items": {
+          "name": "Item",
+          "type": "record",
+          "fields": [
+            { "name": "product_id", "type": {"type": "string", "logicalType": "uuid"} },
+            { "name": "quantity", "type": "int" }
+          ]
+        }
+      }
+    }
+  ]
+}
