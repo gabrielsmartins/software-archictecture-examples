@@ -17,7 +17,7 @@ public class OrderServiceImpl implements OrderService {
     private final OrderRepository repository;
 
     @Override
-    public Order create(Order order) {
+    public Order submit(Order order) {
         log.info("Searching for existing order id: {}", order.getId());
         var optionalOrder = this.repository.findById(order.getId());
         return optionalOrder.orElseGet(() -> {

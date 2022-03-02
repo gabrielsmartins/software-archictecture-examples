@@ -37,7 +37,7 @@ public class SubmittedOrderStateTest {
     @Test
     @DisplayName("Given Order State When Get Status Then Return Submitted Status")
     public void givenOrderStateWhenGetStatusThenReturnSubmittedStatus(){
-        var order = defaultOrder().build();
+        var order = defaultOrder().withState(this.state).build();
         var state = order.getState();
         assertThat(state.getStatus()).isEqualTo(OrderStatus.SUBMITTED);
     }

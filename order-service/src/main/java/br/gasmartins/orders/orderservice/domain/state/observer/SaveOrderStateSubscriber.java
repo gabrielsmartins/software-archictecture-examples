@@ -17,7 +17,7 @@ public class SaveOrderStateSubscriber implements OrderStateSubscriber {
     @Override
     public void onSubscribe(Subscription subscription) {
        this.subscription = subscription;
-       this.subscription.request(1);
+        this.subscription.request(1);
     }
 
     @Override

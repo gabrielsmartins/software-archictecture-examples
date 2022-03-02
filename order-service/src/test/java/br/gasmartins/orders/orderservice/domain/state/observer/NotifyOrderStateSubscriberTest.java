@@ -7,6 +7,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.concurrent.Flow;
+import java.util.concurrent.Flow.Subscription;
 
 import static br.gasmartins.orders.orderservice.domain.support.OrderSupport.defaultOrder;
 import static org.mockito.ArgumentMatchers.any;
@@ -16,11 +17,14 @@ public class NotifyOrderStateSubscriberTest {
 
     private NotifyOrderStateSubscriber subscriber;
     private OrderProcessor processor;
+    private Subscription subscription;
 
     @BeforeEach
     public void setup(){
         this.processor = mock(OrderProcessor.class);
         this.subscriber = new NotifyOrderStateSubscriber(this.processor);
+        this.subscription = mock(Subscription.class);
+        this.subscriber.onSubscribe(subscription);
     }
 
     @Test
@@ -29,6 +33,7 @@ public class NotifyOrderStateSubscriberTest {
         var order = defaultOrder().build();
         this.subscriber.onNext(order);
         verify(this.processor, times(1)).process(any(Order.class));
+        verify(this.subscription, times(2)).request(1L);
     }
 
 

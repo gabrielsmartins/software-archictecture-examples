@@ -37,9 +37,9 @@ public class DeliveredOrderStateTest {
     }
 
     @Test
-    @DisplayName("Given Order State When Get Status Then Return Submitted Status")
-    public void givenOrderStateWhenGetStatusThenReturnSubmittedStatus(){
-        var order = defaultOrder().build();
+    @DisplayName("Given Order State When Get Status Then Return Delivered Status")
+    public void givenOrderStateWhenGetStatusThenReturnDeliveredStatus(){
+        var order = defaultOrder().withState(this.state).build();
         var state = order.getState();
         assertThat(state.getStatus()).isEqualTo(OrderStatus.DELIVERED);
     }

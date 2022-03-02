@@ -18,7 +18,7 @@ spring:
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
-      schema.registry.url: ${spring.kafka.properties.schema.registry.url}7
+      schema.registry.url: ${spring.kafka.properties.schema.registry.url}
     streams:
       properties:
         default.key.serde: io.confluent.kafka.streams.serdes.avro.SpecificAvroSerde

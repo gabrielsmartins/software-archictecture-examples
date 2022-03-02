@@ -7,6 +7,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.concurrent.Flow;
+import java.util.concurrent.Flow.Subscription;
 
 import static br.gasmartins.orders.orderservice.domain.support.OrderSupport.defaultOrder;
 import static org.mockito.Mockito.*;
@@ -15,11 +16,14 @@ public class SaveOrderStateSubscriberTest {
 
     private SaveOrderStateSubscriber subscriber;
     private OrderRepository repository;
+    private Subscription subscription;
 
     @BeforeEach
     public void setup(){
         this.repository = mock(OrderRepository.class);
         this.subscriber = new SaveOrderStateSubscriber(this.repository);
+        this.subscription = mock(Subscription.class);
+        this.subscriber.onSubscribe(subscription);
     }
 
     @Test
@@ -28,6 +32,7 @@ public class SaveOrderStateSubscriberTest {
         var order = defaultOrder().build();
         this.subscriber.onNext(order);
         verify(this.repository, times(1)).save(any(Order.class));
+        verify(this.subscription, times(2)).request(1L);
     }
 
 

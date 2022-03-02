@@ -17,7 +17,7 @@ public class OrderEventListener {
     @EventListener(OrderSubmittedEvent.class)
     public void create(OrderSubmittedEvent event){
         var order = event.getOrder();
-        this.service.create(order);
+        this.service.submit(order);
     }
 
     @EventListener(OrderValidatedEvent.class)
@@ -29,7 +29,7 @@ public class OrderEventListener {
     @EventListener(OrderConfirmedEvent.class)
     public void create(OrderConfirmedEvent event){
         var order = event.getOrder();
-        this.service.create(order);
+        this.service.submit(order);
     }
 
     @EventListener(OrderDeliveredEvent.class)

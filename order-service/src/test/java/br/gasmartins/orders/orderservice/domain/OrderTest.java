@@ -1,11 +1,12 @@
 package br.gasmartins.orders.orderservice.domain;
 
-import br.gasmartins.orders.orderservice.domain.state.RejectedOrderState;
+import br.gasmartins.orders.orderservice.domain.exception.IllegalOrderStateException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static br.gasmartins.orders.orderservice.domain.support.OrderSupport.*;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class OrderTest {
 
@@ -23,14 +24,10 @@ public class OrderTest {
 
 
     @Test
-    @DisplayName("Given Order When Reject Then Return Rejected State")
-    public void givenOrderWhenRejectThenReturnRejectedState(){
-
+    @DisplayName("Given Order When Reject Then Throw Exception")
+    public void givenOrderWhenRejectThenThrowException(){
         var order = defaultOrder().build();
-
-        var state = order.reject();
-
-        assertThat(state).isInstanceOf(RejectedOrderState.class);
+        assertThrows(IllegalOrderStateException.class, order::reject);
     }
 
     @Test
