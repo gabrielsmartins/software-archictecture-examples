@@ -3,8 +3,8 @@ package br.gasmartins.orders.orderservice.domain.enums;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
-@Getter
 @RequiredArgsConstructor
+@Getter
 public enum OrderStatus {
 
     NEW("NEW"),

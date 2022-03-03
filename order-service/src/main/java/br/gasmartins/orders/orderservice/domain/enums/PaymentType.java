@@ -1,7 +1,12 @@
 package br.gasmartins.orders.orderservice.domain.enums;
 
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+
 import java.util.stream.Stream;
 
+@RequiredArgsConstructor
+@Getter
 public enum PaymentType {
 
     CREDIT_CARD("CREDIT CARD"),
@@ -9,11 +14,7 @@ public enum PaymentType {
     INTERNET_BANKING("INTERNET BANKING"),
     PAYPAL("PAYPAL");
 
-    private String description;
-
-    PaymentType(String description) {
-        this.description = description;
-    }
+    private final String description;
 
     public static PaymentType fromDescription(String paymentTypeDescription) {
         return Stream.of(PaymentType.values())
@@ -22,7 +23,4 @@ public enum PaymentType {
                 .orElse(null);
     }
 
-    public String getDescription() {
-        return description;
-    }
 }
