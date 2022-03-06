@@ -1,0 +1,131 @@
+apply plugin: 'java'
+apply plugin: 'jacoco'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+apply plugin: 'com.commercehub.gradle.plugin.avro'
+apply plugin: 'org.openjfx.javafxplugin'
+
+group = 'br.gasmartins.frauds'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+compileJava.options.encoding = 'UTF-8'
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+apply from: "$rootDir/repositories.gradle"
+apply from: "$rootDir/repositories.gradle", to: buildscript
+
+buildscript {
+	apply from: "$rootDir/repositories.gradle", to: buildscript
+	ext {
+		springBootPluginVersion = '2.6.3'
+		springBootDependencyManagementPluginVersion = '1.0.11.RELEASE'
+		avroPluginVersion = '0.22.0'
+		javaFxPluginVersion = '0.0.12'
+	}
+	dependencies {
+		classpath group: 'org.springframework.boot', name: 'spring-boot-gradle-plugin', version: springBootPluginVersion
+		classpath group: 'io.spring.gradle', name: 'dependency-management-plugin', version: springBootDependencyManagementPluginVersion
+		classpath group: 'com.commercehub.gradle.plugin', name: 'gradle-avro-plugin', version: avroPluginVersion
+		classpath group: 'org.openjfx', name: 'javafx-plugin', version: javaFxPluginVersion
+	}
+}
+
+ext {
+	set('springBootVersion', "2.6.3")
+	set('springCloudVersion', "2021.0.0")
+	set('mySqlVersion', "8.0.28")
+	set('lombokVersion', "1.18.12")
+	set('confluentVersion', "7.0.1")
+	set('logstashVersion', "7.0.1")
+	set('modelMapperVersion', "3.0.0")
+	set('avroVersion', "1.11.0")
+	set('awaitilityVersion', "4.1.1")
+	set('kafkaClientsVersion', "2.7.0")
+	set('kafkaStreamsVersion', "2.8.1")
+	set('kafkaStreamsSerdeVersion', "7.0.1")
+	set('javaFxVersion', "11.0.2")
+}
+
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+
+	implementation 'org.apache.kafka:kafka-streams'
+	implementation 'org.springframework.cloud:spring-cloud-starter-circuitbreaker-resilience4j'
+	implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
+	implementation 'org.springframework.cloud:spring-cloud-starter-sleuth'
+	implementation group: 'net.logstash.logback', name: 'logstash-logback-encoder', version: logstashVersion
+	implementation 'org.springframework.kafka:spring-kafka'
+	implementation group: 'io.confluent', name: 'kafka-avro-serializer', version: confluentVersion
+	implementation group: 'org.modelmapper', name: 'modelmapper', version: modelMapperVersion
+	implementation group: 'org.apache.avro', name: 'avro', version: avroVersion
+	implementation group: 'org.apache.kafka', name: 'kafka-clients', version: kafkaClientsVersion //it's necessary because version 3.0.0 + is incompatible with sleuth
+	implementation group: 'org.apache.kafka', name: 'kafka-streams', version: kafkaStreamsVersion
+	implementation group: 'io.confluent', name: 'kafka-streams-avro-serde', version: kafkaStreamsSerdeVersion
+
+	implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion
+	implementation group: 'org.openjfx', name: 'javafx-controls', version: javaFxVersion
+	implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion
+
+
+	implementation group: 'org.projectlombok', name: 'lombok', version: lombokVersion
+	testCompileOnly group: 'org.projectlombok', name: 'lombok', version: lombokVersion
+	annotationProcessor group: 'org.projectlombok', name: 'lombok', version: lombokVersion
+	testAnnotationProcessor group: 'org.projectlombok', name: 'lombok', version: lombokVersion
+
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	runtimeOnly 'io.micrometer:micrometer-registry-prometheus'
+	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+
+	testImplementation 'com.h2database:h2'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.springframework.kafka:spring-kafka-test'
+	testImplementation 'org.springframework.security:spring-security-test'
+	testImplementation group: 'org.awaitility', name: 'awaitility', version: awaitilityVersion
+	testImplementation group: 'org.apache.kafka', name: 'kafka-streams-test-utils', version: kafkaStreamsVersion
+}
+
+dependencyManagement {
+	imports {
+		mavenBom "org.springframework.boot:spring-boot-dependencies:${springBootVersion}"
+		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+	}
+}
+
+test {
+	useJUnitPlatform()
+	finalizedBy(jacocoTestReport)
+}
+
+jacocoTestReport {
+	reports {
+		html.enabled = true
+		xml.enabled = true
+		csv.enabled = false
+		html.destination file("${buildDir}/jacocoHtml")
+	}
+}
+
+jacoco {
+	toolVersion = '0.8.5'
+}
+
+
+avro {
+	enableDecimalLogicalType = true
+	outputCharacterEncoding = "UTF-8"
+}
+
+javafx {
+	version = "11.0.2"
+	modules = [ 'javafx.base', 'javafx.controls', 'javafx.graphics']
+}

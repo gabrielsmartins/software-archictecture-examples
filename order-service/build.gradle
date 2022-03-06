@@ -1,7 +1,7 @@
 apply plugin: 'java'
+apply plugin: 'jacoco'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
-apply plugin: 'jacoco'
 apply plugin: 'com.commercehub.gradle.plugin.avro'
 
 group = 'br.gasmartins.orders'
@@ -35,6 +35,7 @@ buildscript {
 ext {
     set('springBootVersion', "2.6.3")
     set('springCloudVersion', "2021.0.0")
+    set('mySqlVersion', "8.0.28")
     set('lombokVersion', "1.18.12")
     set('confluentVersion', "7.0.1")
     set('logstashVersion', "7.0.1")
@@ -54,6 +55,9 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation group: 'mysql', name: 'mysql-connector-java', version: mySqlVersion
+
+
     implementation 'org.apache.kafka:kafka-streams'
     implementation 'org.springframework.cloud:spring-cloud-starter-circuitbreaker-resilience4j'
     implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
@@ -66,7 +70,6 @@ dependencies {
     implementation group: 'org.apache.kafka', name: 'kafka-clients', version: kafkaClientsVersion //it's necessary because version 3.0.0 + is incompatible with sleuth
     implementation group: 'org.apache.kafka', name: 'kafka-streams', version: kafkaStreamsVersion
     implementation group: 'io.confluent', name: 'kafka-streams-avro-serde', version: kafkaStreamsSerdeVersion
-
 
     implementation group: 'org.projectlombok', name: 'lombok', version: lombokVersion
     testCompileOnly group: 'org.projectlombok', name: 'lombok', version: lombokVersion

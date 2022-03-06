@@ -3,6 +3,15 @@ server:
 spring:
   application:
     name: orders-service
+  datasource:
+    hikari:
+      pool-name: order-service-pool
+      maximum-pool-size: 30
+      max-lifetime: 1800000
+      idle-timeout: 30000
+      data-source-properties:
+        useServerPrepStmts: true
+        cachePrepStmts: true
   kafka:
     bootstrap-servers: 127.0.0.1:9092
     properties:
