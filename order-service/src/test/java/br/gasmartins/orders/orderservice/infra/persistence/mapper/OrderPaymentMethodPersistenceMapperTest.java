@@ -33,7 +33,7 @@ public class OrderPaymentMethodPersistenceMapperTest {
     public void givenOrderPaymentMethodEntityWhenMapThenReturnOrderPaymentMethod(){
         var orderPaymentMethodEntity = defaultOrderPaymentMethodEntity().build();
         var orderPaymentMethod = this.mapper.mapToDomain(orderPaymentMethodEntity);
-        assertThat(orderPaymentMethod).hasNoNullFieldsOrProperties();
+        assertThat(orderPaymentMethod).hasNoNullFieldsOrPropertiesExcept("order");
         assertThat(orderPaymentMethod.getPaymentType()).isEqualTo(orderPaymentMethodEntity.getId().getPaymentType().getSource());
         assertThat(orderPaymentMethod.getAmount()).isEqualTo(orderPaymentMethodEntity.getAmount());
     }

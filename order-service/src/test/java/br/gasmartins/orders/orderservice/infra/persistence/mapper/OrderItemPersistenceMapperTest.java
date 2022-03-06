@@ -34,7 +34,7 @@ public class OrderItemPersistenceMapperTest {
     public void givenOrderItemEntityWhenMapThenReturnOrderItem(){
         var orderItemEntity = defaultOrderItemEntity().build();
         var orderItem = this.mapper.mapToDomain(orderItemEntity);
-        assertThat(orderItem).hasNoNullFieldsOrProperties();
+        assertThat(orderItem).hasNoNullFieldsOrPropertiesExcept("order");
         assertThat(orderItem.getProductId()).isEqualTo(orderItemEntity.getId().getProductId());
         assertThat(orderItem.getAmount()).isEqualTo(orderItemEntity.getAmount());
         assertThat(orderItem.getQuantity()).isEqualTo(orderItemEntity.getQuantity());

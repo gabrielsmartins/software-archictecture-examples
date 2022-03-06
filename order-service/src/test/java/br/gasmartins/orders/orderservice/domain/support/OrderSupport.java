@@ -18,6 +18,7 @@ public class OrderSupport {
                     .withId(1L)
                     .withCustomerId(UUID.randomUUID())
                     .withCreatedAt(LocalDateTime.now())
+                    .withFinishedAt(LocalDateTime.now())
                     .withTotalAmount(BigDecimal.valueOf(1500.50))
                     .withTotalDiscount(BigDecimal.valueOf(500));
         }

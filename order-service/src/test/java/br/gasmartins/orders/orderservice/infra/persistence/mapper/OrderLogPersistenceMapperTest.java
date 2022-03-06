@@ -33,7 +33,7 @@ public class OrderLogPersistenceMapperTest {
     public void givenOrderItemEntityWhenMapThenReturnOrderItem(){
         var orderLogEntity = defaultOrderLogEntity().build();
         var orderLog = this.mapper.mapToDomain(orderLogEntity);
-        assertThat(orderLog).hasNoNullFieldsOrProperties();
+        assertThat(orderLog).hasNoNullFieldsOrPropertiesExcept("order");
         assertThat(orderLog.getDatetime()).isEqualTo(orderLogEntity.getId().getDatetime());
         assertThat(orderLog.getStatus()).isEqualTo(orderLogEntity.getStatus().getSource());
     }

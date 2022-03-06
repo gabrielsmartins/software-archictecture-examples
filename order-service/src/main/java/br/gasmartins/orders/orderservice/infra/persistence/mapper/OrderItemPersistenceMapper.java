@@ -7,7 +7,6 @@ import br.gasmartins.orders.orderservice.infra.persistence.entity.OrderEntity.Or
 import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
-import org.modelmapper.spi.MappingContext;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;
@@ -20,12 +19,7 @@ public class OrderItemPersistenceMapper {
         mapper.addMappings(new PropertyMap<OrderItemEntity, OrderItem>() {
             @Override
             protected void configure() {
-                using(new Converter<OrderItemEntityId, UUID>() {
-                    @Override
-                    public UUID convert(MappingContext<OrderItemEntityId, UUID> context) {
-                        return context.getSource().getProductId();
-                    }
-                }).map();
+                using((Converter<OrderItemEntityId, UUID>) context -> context.getSource().getProductId()).map(this.source.getId(), this.destination.getProductId());
             }
         });
         return mapper.map(orderItemEntity, OrderItem.class);
@@ -36,9 +30,10 @@ public class OrderItemPersistenceMapper {
         mapper.addMappings(new PropertyMap<OrderItem, OrderItemEntity>() {
             @Override
             protected void configure() {
-                using((Converter<OrderItem, UUID>) context -> context.getSource().getProductId())
-                        .map(this.source.getProductId(), this.destination.getId().getProductId());
-               this.destination.getId().setProductId(this.source.getProductId());
+                using((Converter<UUID, OrderItemEntityId>) context -> OrderItemEntityId.builder()
+                                                                                       .withProductId(context.getSource())
+                                                                                       .build())
+                      .map(this.source.getProductId(), this.destination.getId());
             }
         });
         return mapper.map(orderItem, OrderItemEntity.class);

@@ -18,6 +18,8 @@ public class OrderEntitySupport {
                     .withId(1L)
                     .withCustomerId(UUID.randomUUID())
                     .withCreatedAt(LocalDateTime.now())
+                    .withFinishedAt(LocalDateTime.now())
+                    .withStatus(OrderStatusData.FINISHED)
                     .withTotalAmount(BigDecimal.valueOf(1500.50))
                     .withTotalDiscount(BigDecimal.valueOf(500));
         }
