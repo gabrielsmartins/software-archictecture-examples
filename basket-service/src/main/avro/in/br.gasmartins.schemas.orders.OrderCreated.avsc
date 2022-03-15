@@ -1,0 +1,72 @@
+{
+  "type":"record",
+  "name":"OrderCreated",
+  "namespace":"br.gasmartins.schemas.orders.order_created",
+  "fields":[
+    {
+      "name":"id",
+      "type": "long"
+    },
+    {
+      "name":"customer_id",
+      "type": {
+        "type": "string",
+        "logicalType": "uuid"
+      }
+    },
+    {
+      "name":"created_at",
+      "type": {
+        "type": "long",
+        "logicalType": "local-timestamp-millis"
+      }
+    },
+    {
+      "name":"total_amount",
+      "type": {
+        "type": "bytes",
+        "logicalType": "decimal",
+        "precision": 9,
+        "scale": 2
+      }
+    },
+    {
+      "name":"total_discount",
+      "type": {
+        "type": "bytes",
+        "logicalType": "decimal",
+        "precision": 9,
+        "scale": 2
+      }
+    },
+    {
+      "name":"items",
+      "type": {
+        "type": "array",
+        "items": {
+          "name": "Item",
+          "type": "record",
+          "fields": [
+            { "name": "product_id", "type": {"type": "string", "logicalType": "uuid"} },
+            { "name": "quantity", "type": "int" },
+            { "name": "amount", "type": {"type": "bytes", "logicalType": "decimal", "precision": 9, "scale": 2 } }
+          ]
+        }
+      }
+    },
+    {
+      "name":"payment_methods",
+      "type": {
+        "type": "array",
+        "items": {
+          "name": "PaymentMethod",
+          "type": "record",
+          "fields": [
+            { "name": "payment_type", "type": { "type": "enum", "name": "PaymentType", "symbols": ["CREDIT_CARD", "CASH", "INTERNET_BANKING", "PAYPAL"] }},
+            { "name": "amount", "type": {"type": "bytes", "logicalType": "decimal", "precision": 9,  "scale": 2 } }
+          ]
+        }
+      }
+    }
+  ]
+}

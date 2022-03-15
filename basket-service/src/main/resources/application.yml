@@ -1,23 +1,14 @@
 server:
-  port: 8080
+  port: 8084
 spring:
   application:
-    name: orders-service
-  datasource:
-    hikari:
-      pool-name: order-service-pool
-      maximum-pool-size: 30
-      max-lifetime: 1800000
-      idle-timeout: 30000
-      data-source-properties:
-        useServerPrepStmts: true
-        cachePrepStmts: true
+    name: basket-service
   kafka:
     bootstrap-servers: 127.0.0.1:9092
     properties:
       schema.registry.url: http://localhost:8081
     consumer:
-      group-id: orders-service
+      group-id: basket-service
       auto-offset-reset: earliest
       enable-auto-commit: true
       auto.register.schemas: true
@@ -30,10 +21,10 @@ spring:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
       schema.registry.url: ${spring.kafka.properties.schema.registry.url}
-    streams:
+      acks: all
+      auto.register.schemas: true
       properties:
-        default.key.serde: io.confluent.kafka.streams.serdes.avro.SpecificAvroSerde
-        default.value.serde: io.confluent.kafka.streams.serdes.avro.SpecificAvroSerde
+        enable.idempotence: true
     sleuth:
       opentracing:
         enabled: true
@@ -43,11 +34,8 @@ spring:
 
 topics:
   input:
-    basket: basket-orders
-    fraud: fraud-orders
-    payment: payment-orders
-    inventory: inventory-orders
-  output:
     orders: order-status
+  output:
+    basket: basket-orders
 
 

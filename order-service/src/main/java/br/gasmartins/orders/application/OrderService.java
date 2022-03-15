@@ -6,7 +6,7 @@ import java.util.Optional;
 
 public interface OrderService {
 
-    Order submit(Order order);
+    Order create(Order order);
 
     Order validate(Order order);
 

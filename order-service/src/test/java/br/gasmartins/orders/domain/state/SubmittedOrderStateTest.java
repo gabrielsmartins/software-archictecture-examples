@@ -39,7 +39,7 @@ public class SubmittedOrderStateTest {
     public void givenOrderStateWhenGetStatusThenReturnSubmittedStatus(){
         var order = OrderSupport.defaultOrder().withState(this.state).build();
         var state = order.getState();
-        assertThat(state.getStatus()).isEqualTo(OrderStatus.SUBMITTED);
+        assertThat(state.getStatus()).isEqualTo(OrderStatus.CREATED);
     }
 
 

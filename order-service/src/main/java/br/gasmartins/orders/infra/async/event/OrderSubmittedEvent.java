@@ -13,6 +13,6 @@ public class OrderSubmittedEvent extends OrderEvent {
 
     @Override
     public OrderStatus getStatus() {
-        return OrderStatus.SUBMITTED;
+        return OrderStatus.CREATED;
     }
 }

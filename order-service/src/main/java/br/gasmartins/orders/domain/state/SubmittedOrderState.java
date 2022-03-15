@@ -11,7 +11,7 @@ public class SubmittedOrderState extends OrderState {
 
     @Override
     public OrderStatus getStatus() {
-        return OrderStatus.SUBMITTED;
+        return OrderStatus.CREATED;
     }
 
     @Override
