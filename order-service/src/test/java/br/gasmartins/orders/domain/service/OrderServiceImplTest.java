@@ -1,8 +1,7 @@
-package br.gasmartins.orders.application.service;
+package br.gasmartins.orders.domain.service;
 
 import br.gasmartins.orders.application.OrderService;
 import br.gasmartins.orders.domain.repository.OrderRepository;
-import br.gasmartins.orders.domain.service.OrderServiceImpl;
 import br.gasmartins.orders.domain.state.*;
 import br.gasmartins.orders.domain.support.OrderSupport;
 import org.assertj.core.api.Assertions;

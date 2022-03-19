@@ -14,6 +14,7 @@ import java.util.Map;
 public class TopicProperties {
 
     public static final String BASKET_TOPIC = "basket-orders";
+    public static final String ORDER_TOPIC = "order-status";
     public static final String SHIPPING_TOPIC = "shipping-orders";
     public static final String FRAUD_TOPIC = "fraud-orders";
     public static final String PAYMENT_TOPIC = "payment-orders";

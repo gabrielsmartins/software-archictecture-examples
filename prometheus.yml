@@ -1,0 +1,14 @@
+global:
+  scrape_interval:   15s
+
+  external_labels:
+    monitor: 'basket-server-monitoring'
+
+scrape_configs:
+- job_name:       'basket-server'
+  scrape_interval: 10s
+  metrics_path: '/actuator/prometheus'
+  static_configs:
+  - targets: ['app:8084']
+    labels:
+      application: 'basket-server'

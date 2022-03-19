@@ -1,6 +1,6 @@
-package br.gasmartins.orders.application.in;
+package br.gasmartins.orders.application.messaging;
 
-import br.gasmartins.orders.application.in.mapper.OrderConsumerMapper;
+import br.gasmartins.orders.application.messaging.mapper.OrderConsumerMapper;
 import br.gasmartins.orders.infra.async.adapter.OrderAsyncProcessor;
 import br.gasmartins.schemas.basket.order_submitted.OrderSubmitted;
 import lombok.RequiredArgsConstructor;

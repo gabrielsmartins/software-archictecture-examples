@@ -1,6 +1,6 @@
 {
   "type":"record",
-  "name":"OrderCreated",
+  "name":"OrderConfirmed",
   "namespace":"br.gasmartins.schemas.orders.order_confirmed",
   "fields":[
     {

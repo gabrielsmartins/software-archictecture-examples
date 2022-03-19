@@ -1,4 +1,4 @@
-package br.gasmartins.orders.application.in.mapper;
+package br.gasmartins.orders.application.messaging.mapper;
 
 import br.gasmartins.orders.domain.Order;
 import br.gasmartins.schemas.basket.order_submitted.OrderSubmitted;

@@ -1,4 +1,4 @@
-package br.gasmartins.orders.application.in;
+package br.gasmartins.orders.application.messaging;
 
 import org.springframework.kafka.annotation.KafkaListener;
 

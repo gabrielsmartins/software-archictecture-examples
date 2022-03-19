@@ -1,7 +1,7 @@
 package br.gasmartins.basket.application.web;
 
 import br.gasmartins.basket.application.web.dto.OrderDto;
-import br.gasmartins.basket.application.web.mapper.BasketControllerMapper;
+import br.gasmartins.basket.application.web.mapper.OrderBasketControllerMapper;
 import br.gasmartins.basket.domain.service.IBasketService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,7 +22,7 @@ import static net.logstash.logback.argument.StructuredArguments.kv;
 @Slf4j
 public class BasketController {
 
-    private final BasketControllerMapper mapper;
+    private final OrderBasketControllerMapper mapper;
     private final IBasketService service;
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)

@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Collections;
@@ -25,28 +27,29 @@ public class OrderDto {
     private Long id;
 
     @JsonProperty(value = "customer_id", required = true)
+    @NotNull
     private UUID customerId;
 
-    @JsonProperty(value = "created_at", required = true)
+    @JsonProperty(value = "created_at", required = true, access = JsonProperty.Access.READ_ONLY)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createdAt;
 
-    @JsonProperty(value = "finished_at", required = true)
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime finishedAt;
-
     @JsonProperty(value = "total_amount", required = true)
+    @NotNull
     private BigDecimal totalAmount;
 
     @JsonProperty(value = "total_discount", required = true)
+    @NotNull
     private BigDecimal totalDiscount;
 
     @Getter(AccessLevel.NONE)
     @Builder.Default
+    @NotEmpty
     private final List<OrderItemDto> items = new LinkedList<>();
 
     @Getter(AccessLevel.NONE)
     @Builder.Default
+    @NotEmpty
     private final List<OrderPaymentMethodDto> paymentMethods = new LinkedList<>();
 
     public List<OrderItemDto> getItems() {

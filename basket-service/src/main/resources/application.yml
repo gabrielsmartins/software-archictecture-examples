@@ -32,6 +32,17 @@ spring:
         probability: 1.0
       trace-id128: true
 
+management:
+  endpoint:
+    metrics:
+      enabled: true
+    prometheus:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: health, metrics, prometheus
+
 topics:
   input:
     orders: order-status
