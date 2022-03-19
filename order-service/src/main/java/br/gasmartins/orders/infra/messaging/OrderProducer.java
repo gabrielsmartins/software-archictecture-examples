@@ -1,7 +1,7 @@
 package br.gasmartins.orders.infra.messaging;
 
 import br.gasmartins.orders.domain.Order;
-import br.gasmartins.orders.domain.publisher.OrderPublisher;
+import br.gasmartins.orders.domain.publisher.OrderDispatcher;
 import br.gasmartins.orders.infra.messaging.config.TopicProperties;
 import br.gasmartins.orders.infra.messaging.mapper.OrderProducerMapperFactory;
 import lombok.RequiredArgsConstructor;
@@ -13,14 +13,14 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 @Slf4j
-public class OrderProducer implements OrderPublisher {
+public class OrderProducer implements OrderDispatcher {
 
     private final KafkaTemplate<String, SpecificRecord> kafkaTemplate;
     private final OrderProducerMapperFactory factory;
     private final TopicProperties properties;
 
     @Override
-    public void publish(Order order) {
+    public void dispatch(Order order) {
         var mapper = this.factory.createMapper(order);
         var message = mapper.mapToMessage(order);
         var topic = this.properties.getOutputTopic(TopicProperties.ORDER_TOPIC);

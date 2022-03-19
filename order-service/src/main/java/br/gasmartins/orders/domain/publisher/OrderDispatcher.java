@@ -2,8 +2,8 @@ package br.gasmartins.orders.domain.publisher;
 
 import br.gasmartins.orders.domain.Order;
 
-public interface OrderPublisher {
+public interface OrderDispatcher {
 
-    void publish(Order order);
+    void dispatch(Order order);
 
 }

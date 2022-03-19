@@ -79,6 +79,7 @@ dependencies {
 
     testImplementation 'com.h2database:h2'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.kafka:spring-kafka-test'
     testImplementation group: 'org.awaitility', name: 'awaitility', version: awaitilityVersion
     testImplementation group: 'org.apache.kafka', name: 'kafka-streams-test-utils', version: kafkaStreamsVersion
 }

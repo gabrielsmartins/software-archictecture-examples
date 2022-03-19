@@ -79,7 +79,6 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'io.projectreactor:reactor-test'
 	testImplementation 'org.springframework.kafka:spring-kafka-test'
-	testImplementation 'org.springframework.security:spring-security-test'
 	testImplementation group: 'org.awaitility', name: 'awaitility', version: awaitilityVersion
 	testImplementation group: 'org.apache.kafka', name: 'kafka-streams-test-utils', version: kafkaStreamsVersion
 }
