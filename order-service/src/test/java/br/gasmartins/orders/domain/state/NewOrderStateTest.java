@@ -20,11 +20,11 @@ public class NewOrderStateTest {
     }
 
     @Test
-    @DisplayName("Given Order When Advance State Then Return Submitted State")
-    public void givenOrderWhenAdvanceStateThenReturnSubmittedState(){
+    @DisplayName("Given Order When Advance State Then Return Created State")
+    public void givenOrderWhenAdvanceStateThenReturnCreatedState(){
         var order = OrderSupport.defaultOrder().build();
         var state = this.state.next(order);
-        assertThat(state).isInstanceOf(SubmittedOrderState.class);
+        assertThat(state).isInstanceOf(CreatedOrderState.class);
     }
 
     @Test

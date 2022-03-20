@@ -42,7 +42,6 @@ ext {
     set('modelMapperVersion', "3.0.0")
     set('avroVersion', "1.11.0")
     set('awaitilityVersion', "4.1.1")
-    set('kafkaClientsVersion', "2.7.0")
     set('kafkaStreamsVersion', "2.8.1")
     set('kafkaStreamsSerdeVersion', "7.0.1")
 }
@@ -64,7 +63,6 @@ dependencies {
     implementation group: 'io.confluent', name: 'kafka-avro-serializer', version: confluentVersion
     implementation group: 'org.modelmapper', name: 'modelmapper', version: modelMapperVersion
     implementation group: 'org.apache.avro', name: 'avro', version: avroVersion
-    implementation group: 'org.apache.kafka', name: 'kafka-clients', version: kafkaClientsVersion //it's necessary because version 3.0.0 + is incompatible with sleuth
     implementation group: 'org.apache.kafka', name: 'kafka-streams', version: kafkaStreamsVersion
     implementation group: 'io.confluent', name: 'kafka-streams-avro-serde', version: kafkaStreamsSerdeVersion
 

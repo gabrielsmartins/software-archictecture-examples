@@ -1,5 +1,6 @@
 package br.gasmartins.orders.infra.messaging;
 
+import br.gasmartins.orders.MessagingConfig;
 import br.gasmartins.orders.infra.messaging.config.TopicProperties;
 import io.confluent.kafka.serializers.KafkaAvroDeserializer;
 import io.confluent.kafka.serializers.KafkaAvroDeserializerConfig;
@@ -26,7 +27,7 @@ import java.util.Map;
 import static br.gasmartins.orders.domain.support.OrderSupport.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
-@SpringBootTest
+@SpringBootTest(classes = MessagingConfig.class)
 @ExtendWith(SpringExtension.class)
 @EmbeddedKafka(partitions = 1, controlledShutdown = true)
 @ActiveProfiles("test")

@@ -11,7 +11,7 @@ import java.util.stream.Stream;
 public enum OrderStatusData {
 
     NEW(0, OrderStatus.NEW),
-    SUBMITTED(1, OrderStatus.CREATED),
+    CREATED(1, OrderStatus.CREATED),
     VALIDATED(2, OrderStatus.VALIDATED),
     CONFIRMED(3, OrderStatus.CONFIRMED),
     DELIVERED(4, OrderStatus.DELIVERED),

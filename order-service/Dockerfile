@@ -1,5 +1,5 @@
 FROM openjdk:11-jdk
 VOLUME /app
 COPY build/libs/*.jar .
-EXPOSE 8084
+EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "-Dspring.active.profile=local", "order-service.jar"]

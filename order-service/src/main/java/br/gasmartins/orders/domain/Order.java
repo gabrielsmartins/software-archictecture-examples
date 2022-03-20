@@ -86,7 +86,7 @@ public class Order {
 
     @Getter
     @Setter
-    @ToString
+    @ToString(exclude = {"order"})
     @Builder(setterPrefix = "with")
     @NoArgsConstructor
     @AllArgsConstructor
@@ -101,7 +101,7 @@ public class Order {
 
     @Getter
     @Setter
-    @ToString
+    @ToString(exclude = {"order"})
     @Builder(setterPrefix = "with")
     @NoArgsConstructor
     @AllArgsConstructor
@@ -115,7 +115,7 @@ public class Order {
 
     @Getter
     @Setter
-    @ToString
+    @ToString(exclude = {"order"})
     @Builder(setterPrefix = "with")
     @NoArgsConstructor
     @AllArgsConstructor

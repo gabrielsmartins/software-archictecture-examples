@@ -9,15 +9,15 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class SubmittedOrderStateTest {
+public class CreatedOrderStateTest {
 
-    private SubmittedOrderState state;
+    private CreatedOrderState state;
     private Order order;
 
     @BeforeEach
     public void setup(){
         this.order = OrderSupport.defaultOrder().build();
-        this.state = new SubmittedOrderState(order);
+        this.state = new CreatedOrderState(order);
     }
 
     @Test
@@ -35,8 +35,8 @@ public class SubmittedOrderStateTest {
     }
 
     @Test
-    @DisplayName("Given Order State When Get Status Then Return Submitted Status")
-    public void givenOrderStateWhenGetStatusThenReturnSubmittedStatus(){
+    @DisplayName("Given Order State When Get Status Then Return Created Status")
+    public void givenOrderStateWhenGetStatusThenReturnCreatedStatus(){
         var order = OrderSupport.defaultOrder().withState(this.state).build();
         var state = order.getState();
         assertThat(state.getStatus()).isEqualTo(OrderStatus.CREATED);

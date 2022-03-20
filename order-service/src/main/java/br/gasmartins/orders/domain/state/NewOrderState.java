@@ -17,11 +17,11 @@ public class NewOrderState extends OrderState {
 
     @Override
     public OrderState next(Order order) {
-        return new SubmittedOrderState(order);
+        return new CreatedOrderState(order);
     }
 
     @Override
     public OrderState reject(Order order) {
-        throw new IllegalOrderStateException("Order isn't submitted yet");
+        throw new IllegalOrderStateException("Order isn't created yet");
     }
 }

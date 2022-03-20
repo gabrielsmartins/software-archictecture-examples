@@ -1,6 +1,6 @@
 package br.gasmartins.orders.application.messaging;
 
-import br.gasmartins.orders.application.messaging.mapper.OrderConsumerMapper;
+import br.gasmartins.orders.application.messaging.mapper.OrderBasketConsumerMapper;
 import br.gasmartins.orders.infra.async.adapter.OrderAsyncProcessor;
 import br.gasmartins.schemas.basket.order_submitted.OrderSubmitted;
 import lombok.RequiredArgsConstructor;
@@ -17,10 +17,10 @@ import static net.logstash.logback.argument.StructuredArguments.kv;
 @KafkaListener(topics = "${topics.input.basket}", groupId = "${spring.kafka.consumer.group-id}")
 @RequiredArgsConstructor
 @Slf4j
-public class BasketConsumer {
+public class OrderBasketConsumer {
 
     private final OrderAsyncProcessor processor;
-    private final OrderConsumerMapper mapper;
+    private final OrderBasketConsumerMapper mapper;
 
     @KafkaHandler
     @SendTo
@@ -28,7 +28,7 @@ public class BasketConsumer {
         log.info("Reading message: {},{}", kv("headers", headers), kv("payload", message));
 
         log.info("Mapping message to order: {}", kv("message", message));
-        var order = this.mapper.map(message);
+        var order = this.mapper.mapToDomain(message);
         log.info("Order was mapped successfully: {}", kv("order", message));
 
         log.info("Processing order: {}", kv("order", order));

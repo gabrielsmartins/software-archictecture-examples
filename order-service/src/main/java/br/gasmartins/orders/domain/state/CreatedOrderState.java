@@ -3,9 +3,9 @@ package br.gasmartins.orders.domain.state;
 import br.gasmartins.orders.domain.Order;
 import br.gasmartins.orders.domain.enums.OrderStatus;
 
-public class SubmittedOrderState extends OrderState {
+public class CreatedOrderState extends OrderState {
 
-    public SubmittedOrderState(Order order) {
+    public CreatedOrderState(Order order) {
         super(order);
     }
 

@@ -38,19 +38,19 @@ public class OrderServiceImplTest {
     }
 
     @Test
-    @DisplayName("Given Order When Create Then Return Submitted Order")
-    public void givenOrderWhenCreateThenReturnSubmittedOrder(){
+    @DisplayName("Given Order When Create Then Return Created Order")
+    public void givenOrderWhenCreateThenReturnCreatedOrder(){
         var order = OrderSupport.defaultOrder().build();
-        var submittedOrder = this.service.create(order);
-        assertThat(submittedOrder.getState()).isInstanceOf(SubmittedOrderState.class);
+        var createdOrder = this.service.create(order);
+        assertThat(createdOrder.getState()).isInstanceOf(CreatedOrderState.class);
     }
 
     @Test
     @DisplayName("Given Order When Validate Then Return Validated Order")
     public void givenOrderWhenValidateThenReturnValidatedOrder(){
         var order = OrderSupport.defaultOrder().build();
-        var submittedOrder = this.service.create(order);
-        var validatedOrder = this.service.validate(submittedOrder);
+        var createdOrder = this.service.create(order);
+        var validatedOrder = this.service.validate(createdOrder);
         assertThat(validatedOrder.getState()).isInstanceOf(ValidatedOrderState.class);
     }
 
@@ -58,8 +58,8 @@ public class OrderServiceImplTest {
     @DisplayName("Given Order When Confirm Then Return Confirmed Order")
     public void givenOrderWhenConfirmThenReturnConfirmedOrder(){
         var order = OrderSupport.defaultOrder().build();
-        var submittedOrder = this.service.create(order);
-        var validatedOrder = this.service.validate(submittedOrder);
+        var createdOrder = this.service.create(order);
+        var validatedOrder = this.service.validate(createdOrder);
         var confirmedOrder = this.service.confirm(validatedOrder);
         assertThat(confirmedOrder.getState()).isInstanceOf(ConfirmedOrderState.class);
     }
@@ -68,8 +68,8 @@ public class OrderServiceImplTest {
     @DisplayName("Given Order When Deliver Then Return Delivered Order")
     public void givenOrderWhenDeliverThenReturnDeliveredOrder(){
         var order = OrderSupport.defaultOrder().build();
-        var submittedOrder = this.service.create(order);
-        var validatedOrder = this.service.validate(submittedOrder);
+        var createdOrder = this.service.create(order);
+        var validatedOrder = this.service.validate(createdOrder);
         var confirmedOrder = this.service.confirm(validatedOrder);
         var deliveredOrder = this.service.deliver(confirmedOrder);
         assertThat(deliveredOrder.getState()).isInstanceOf(DeliveredOrderState.class);
@@ -79,8 +79,8 @@ public class OrderServiceImplTest {
     @DisplayName("Given Order When Finish Then Return Finished Order")
     public void givenOrderWhenFinishThenReturnFinishedOrder(){
         var order = OrderSupport.defaultOrder().build();
-        var submittedOrder = this.service.create(order);
-        var validatedOrder = this.service.validate(submittedOrder);
+        var createdOrder = this.service.create(order);
+        var validatedOrder = this.service.validate(createdOrder);
         var confirmedOrder = this.service.confirm(validatedOrder);
         var deliveredOrder = this.service.deliver(confirmedOrder);
         var finishedOrder = this.service.finish(deliveredOrder);
@@ -91,9 +91,9 @@ public class OrderServiceImplTest {
     @DisplayName("Given Order When Reject Then Return Rejected Order")
     public void givenOrderWhenRejectThenReturnRejectedOrder(){
         var order = OrderSupport.defaultOrder().build();
-        var submittedOrder = this.service.create(order);
-        var validatedOrder = this.service.validate(submittedOrder);
-        var rejectedOrder = this.service.reject(validatedOrder);;
+        var createdOrder = this.service.create(order);
+        var validatedOrder = this.service.validate(createdOrder);
+        var rejectedOrder = this.service.reject(validatedOrder);
         assertThat(rejectedOrder.getState()).isInstanceOf(RejectedOrderState.class);
     }
 }
